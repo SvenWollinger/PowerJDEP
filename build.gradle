@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClassName = "io.wollinger.powerjdep.PowerJDEP"
+}
+
+group 'io.wollinger'
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0'
+    implementation 'commons-io:commons-io:2.11.0'
+
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'io.wollinger.powerjdep.PowerJDEP'
+        )
+    }
+
+    from {
+        configurations
+                .runtimeClasspath
+                .findAll { !it.name.endsWith('pom') }
+                .collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+}
+
+test {
+    useJUnitPlatform()
+}
