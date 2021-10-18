@@ -17,9 +17,17 @@ public class PowerJDEP {
                 if(!result.contains(data))
                     result.add(data);
             }
-            System.out.println("Needed packages:");
-            for(String resultData : result) {
-                System.out.println(resultData);
+            if(args.length > 1 && args[1].equals("-jlink-pretty")) {
+                for(int i = 0; i < result.size(); i++) {
+                    System.out.print(result.get(i));
+                    if(i != result.size() - 1)
+                        System.out.print(",");
+                }
+            } else {
+                System.out.println("Needed packages:");
+                for (String resultData : result) {
+                    System.out.println(resultData);
+                }
             }
         } else {
             System.out.println("File missing!");
