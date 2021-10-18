@@ -14,7 +14,7 @@ public class PowerJDEP {
             ArrayList<String> list = load(inputFile);
             ArrayList<String> result = new ArrayList<>();
             for(String data : list) {
-                if(!result.contains(data))
+                if(!result.contains(data) && !data.endsWith(".jar"))
                     result.add(data);
             }
             if(args.length > 1 && args[1].equals("-jlink-pretty")) {
